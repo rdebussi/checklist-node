@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h1>CHECK LIST</h1>
+    <hr>
+    <form id="myForm" method="POST" action="/task/save">
+        <label for="inputText">add a Task</label>
+        <input type="text" id="content" name="content" required>
+        <input type="submit">
+    </form>
+    <hr>
+    <div class="table-container">
+    <table>
+        <tbody>
+            <% tasks.forEach(task => { %>
+            <tr>
+                <th><%= task.content %></th>
+                <th id="dois">
+                    <form method="POST" action="/task/delete" style="display:inline" onsubmit="confirmarDelecao(event, this)">
+                        <input type="hidden" name="id" value="<%= task.id %>">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </th>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    </div>    
+</body>
+<script>
+    function confirmarDelecao(event, form){
+        event.preventDefault()
+        var decision = confirm("você quer deletar essa categoria?")
+        if(decision){
+            form.submit()
+        } else{
+            console.log("não quero deletar")
+        }
+
+    }
+</script>
+</html>
